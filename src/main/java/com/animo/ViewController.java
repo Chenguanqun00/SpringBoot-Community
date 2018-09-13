@@ -33,17 +33,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ViewController {
 
     @GetMapping("admin/login.do")
-    public String adminLogin(){
-        return "admin/login";
+    public String adminLogin() {
+        return "admin/login" ;
     }
 
     @GetMapping("user/reg")
-    public String userReg(){
-        return "user/reg";
+    public String userReg() {
+        return "user/reg" ;
     }
 
     @GetMapping("user/login")
-    public String userLogin(){
-        return "user/login";
+    public String userLogin() {
+        return "user/login" ;
     }
 }

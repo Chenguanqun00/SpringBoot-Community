@@ -5,6 +5,9 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.animo.fly.entity.User">
         <id column="id" property="id" />
+        <result column="userName" property="userName" />
+        <result column="userPwd" property="userPwd" />
+        <result column="email" property="email" />
     </resultMap>
 
 </mapper>

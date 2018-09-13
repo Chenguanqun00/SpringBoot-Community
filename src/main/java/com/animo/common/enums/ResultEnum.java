@@ -29,16 +29,16 @@ public enum ResultEnum {
     /**
      * 0 成功
      */
-    SUCCESS(0,"SUCCES"),
+    SUCCESS(0, "SUCCES"),
     /**
      * 1 失败
      */
-    ERROR(1,"ERROR");
+    ERROR(1, "ERROR");
 
     private Integer code;
     private String type;
 
-    ResultEnum(Integer code, String type){
+    ResultEnum(Integer code, String type) {
         this.code = code;
         this.type = type;
     }

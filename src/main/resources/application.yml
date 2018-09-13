@@ -1,5 +1,5 @@
 spring:
-    mail:
+  mail:
       host: smtp.qq.com #发送邮件服务器
       username: 1151757358@qq.com #QQ邮箱
       password: tpmlrrtlkqfggabe #客户端授权码
@@ -13,31 +13,33 @@ spring:
       properties.mail.smtp.ssl.enable: true
       default-encoding: utf-8
       from: 1151757358@qq.com
-    datasource:
-      druid:
-        url: jdbc:mysql://127.0.0.1:3306/fly?characterEncoding=utf-8&useSSL=false
-        username: root
-        password: 123456
-        driver-class-name: com.mysql.jdbc.Driver
-        initial-size: 2
-        max-active: 30
-        min-idle: 2
-        max-wait: 1234
-        pool-prepared-statements: true
-        max-pool-prepared-statement-per-connection-size: 5
-        validation-query: select 1
-        validation-query-timeout: 1
-        test-on-borrow: true
-        test-on-return: true
-        test-while-idle: true
-        time-between-eviction-runs-millis: 10000
-        min-evictable-idle-time-millis: 30001
-        async-close-connection-enable: true
+  datasource:
+    druid:
+      url: jdbc:mysql://127.0.0.1:3306/fly?characterEncoding=utf-8&useSSL=false
+      username: root
+      password: 123456
+      driver-class-name: com.mysql.jdbc.Driver
+      initial-size: 2
+      max-active: 30
+      min-idle: 2
+      max-wait: 1234
+      pool-prepared-statements: true
+      max-pool-prepared-statement-per-connection-size: 5
+      validation-query: select 1
+      validation-query-timeout: 1
+      test-on-borrow: true
+      test-on-return: true
+      test-while-idle: true
+      time-between-eviction-runs-millis: 10000
+      min-evictable-idle-time-millis: 30001
+      async-close-connection-enable: true
+  redis:
+    timeout: 60s
 mybatis-plus:
-#  mapper-locations: classpath:/com/animo/fly/mapper/*Mapper.xml
+  mapper-locations: classpath:/com/animo/fly/mapper/xml/*Mapper.xml
 #  #实体扫描，多个package用逗号或者分号分隔
-#  typeAliasesPackage: com.animo.fly.entity
-#  typeEnumsPackage: com.animo.fly.enums
+  typeAliasesPackage: com.animo.fly.entity
+  typeEnumsPackage: com.animo.common.enums
   global-config:
     # 数据库相关配置
     db-config:

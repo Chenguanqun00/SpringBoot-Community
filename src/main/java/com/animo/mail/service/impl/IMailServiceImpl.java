@@ -1,6 +1,10 @@
 package com.animo.mail.service.impl;
 
+import com.animo.mail.entity.AttachmentsEntity;
+import com.animo.mail.entity.ResourceEntity;
+import com.animo.mail.entity.SimpleEntity;
 import com.animo.mail.service.IMailService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.FileSystemResource;
@@ -8,6 +12,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Component;
+import sun.java2d.pipe.SpanShapeRenderer;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -47,57 +52,58 @@ public class IMailServiceImpl implements IMailService {
     private String from;
 
     @Override
-    public void sendSimpleMail(String to, String subject, String content) {
+    public void sendSimpleMail(SimpleEntity simpleEntity) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from);
-        message.setTo(to);
-        message.setSubject(subject);
-        message.setText(content);
+        message.setTo(simpleEntity.getTo());
+        message.setSubject(simpleEntity.getSubject());
+        message.setText(simpleEntity.getText());
         mailSender.send(message);
     }
 
     @Override
-    public void sendSimpleMail(String to, String subject, String content, String... cc) {
+    public void sendSimpleMailCc(SimpleEntity simpleEntity) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom(from);
-        message.setTo(to);
-        message.setCc(cc);
-        message.setSubject(subject);
-        message.setText(content);
+        message.setTo(simpleEntity.getTo());
+        message.setCc(simpleEntity.getCc());
+        message.setSubject(simpleEntity.getSubject());
+        message.setText(simpleEntity.getText());
         mailSender.send(message);
     }
 
     @Override
-    public void sendHtmlMail(String to, String subject, String content) throws MessagingException {
+    public void sendHtmlMail(SimpleEntity simpleEntity) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setFrom(from);
-        helper.setTo(to);
-        helper.setSubject(subject);
-        helper.setText(content, true);
+        helper.setTo(simpleEntity.getTo());
+        helper.setSubject(simpleEntity.getSubject());
+        helper.setText(simpleEntity.getText(), true);
         mailSender.send(message);
     }
 
     @Override
-    public void sendHtmlMail(String to, String subject, String content, String... cc) throws MessagingException {
+    public void sendHtmlMailCc(SimpleEntity simpleEntity) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setFrom(from);
-        helper.setTo(to);
-        helper.setSubject(subject);
-        helper.setText(content, true);
-        helper.setCc(cc);
+        helper.setTo(simpleEntity.getTo());
+        helper.setSubject(simpleEntity.getSubject());
+        helper.setText(simpleEntity.getText(), true);
+        helper.setCc(simpleEntity.getCc());
         mailSender.send(message);
     }
 
     @Override
-    public void sendAttachmentsMail(String to, String subject, String content, String filePath) throws MessagingException {
+    public void sendAttachmentsMail(AttachmentsEntity attachmentsEntity) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        String filePath = attachmentsEntity.getFilePath();
         helper.setFrom(from);
-        helper.setTo(to);
-        helper.setSubject(subject);
-        helper.setText(content, true);
+        helper.setTo(attachmentsEntity.getTo());
+        helper.setSubject(attachmentsEntity.getSubject());
+        helper.setText(filePath, true);
         FileSystemResource file = new FileSystemResource(new File(filePath));
         String fileName = filePath.substring(filePath.lastIndexOf(File.separator));
         helper.addAttachment(fileName, file);
@@ -105,14 +111,15 @@ public class IMailServiceImpl implements IMailService {
     }
 
     @Override
-    public void sendAttachmentsMail(String to, String subject, String content, String filePath, String... cc) throws MessagingException {
+    public void sendAttachmentsMailCc(AttachmentsEntity attachmentsEntity) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
+        String filePath = attachmentsEntity.getFilePath();
+        helper.setCc(attachmentsEntity.getCc());
         helper.setFrom(from);
-        helper.setTo(to);
-        helper.setCc(cc);
-        helper.setSubject(subject);
-        helper.setText(content, true);
+        helper.setTo(attachmentsEntity.getTo());
+        helper.setSubject(attachmentsEntity.getSubject());
+        helper.setText(filePath, true);
         FileSystemResource file = new FileSystemResource(new File(filePath));
         String fileName = filePath.substring(filePath.lastIndexOf(File.separator));
         helper.addAttachment(fileName, file);
@@ -120,29 +127,29 @@ public class IMailServiceImpl implements IMailService {
     }
 
     @Override
-    public void sendResourceMail(String to, String subject, String content, String rscPath, String rscId) throws MessagingException {
+    public void sendResourceMail(ResourceEntity resourceEntity) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setFrom(from);
-        helper.setTo(to);
-        helper.setSubject(subject);
-        helper.setText(content, true);
-        FileSystemResource res = new FileSystemResource(new File(rscPath));
-        helper.addInline(rscId, res);
+        helper.setTo(resourceEntity.getTo());
+        helper.setSubject(resourceEntity.getSubject());
+        helper.setText(resourceEntity.getText(), true);
+        FileSystemResource res = new FileSystemResource(new File(resourceEntity.getRscPath()));
+        helper.addInline(resourceEntity.getRscId(), res);
         mailSender.send(message);
     }
 
     @Override
-    public void sendResourceMail(String to, String subject, String content, String rscPath, String rscId, String... cc) throws MessagingException {
+    public void sendResourceMailCc(ResourceEntity resourceEntity) throws MessagingException {
         MimeMessage message = mailSender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message, true);
         helper.setFrom(from);
-        helper.setTo(to);
-        helper.setCc(cc);
-        helper.setSubject(subject);
-        helper.setText(content, true);
-        FileSystemResource res = new FileSystemResource(new File(rscPath));
-        helper.addInline(rscId, res);
+        helper.setCc(resourceEntity.getCc());
+        helper.setTo(resourceEntity.getTo());
+        helper.setSubject(resourceEntity.getSubject());
+        helper.setText(resourceEntity.getText(), true);
+        FileSystemResource res = new FileSystemResource(new File(resourceEntity.getRscPath()));
+        helper.addInline(resourceEntity.getRscId(), res);
         mailSender.send(message);
     }
 }

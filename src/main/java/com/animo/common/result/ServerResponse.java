@@ -38,21 +38,21 @@ public class ServerResponse<T> implements Serializable {
     private T data;
 
 
-    ServerResponse(Integer code){
+    ServerResponse(Integer code) {
         this.code = code;
     }
 
-    ServerResponse(Integer code, String message){
+    ServerResponse(Integer code, String message) {
         this.code = code;
         this.message = message;
     }
 
-    ServerResponse(Integer code, T data){
+    ServerResponse(Integer code, T data) {
         this.code = code;
         this.data = data;
     }
 
-    ServerResponse(Integer code, String message, T data){
+    ServerResponse(Integer code, String message, T data) {
         this.code = code;
         this.message = message;
         this.data = data;
@@ -61,37 +61,37 @@ public class ServerResponse<T> implements Serializable {
 
     @JsonIgnore
     //不会序列化
-    public boolean isSuccess(){
+    public boolean isSuccess() {
         return this.code.equals(ResultEnum.SUCCESS.getCode());
     }
 
 
-    public static <T> ServerResponse<T> createBySuccess(){
+    public static <T> ServerResponse<T> createBySuccess() {
         return new ServerResponse<T>(ResultEnum.SUCCESS.getCode());
     }
 
-    public static <T> ServerResponse<T> createBySuccess(String message){
-        return new ServerResponse<T>(ResultEnum.SUCCESS.getCode(),message);
+    public static <T> ServerResponse<T> createBySuccess(String message) {
+        return new ServerResponse<T>(ResultEnum.SUCCESS.getCode(), message);
     }
 
-    public static <T> ServerResponse<T> createBySuccess(T data){
-        return new ServerResponse<T>(ResultEnum.SUCCESS.getCode(),data);
+    public static <T> ServerResponse<T> createBySuccess(T data) {
+        return new ServerResponse<T>(ResultEnum.SUCCESS.getCode(), data);
     }
 
-    public static <T> ServerResponse<T> createBySuccess(String message, T data){
-        return new ServerResponse<T>(ResultEnum.SUCCESS.getCode(),message,data);
+    public static <T> ServerResponse<T> createBySuccess(String message, T data) {
+        return new ServerResponse<T>(ResultEnum.SUCCESS.getCode(), message, data);
     }
 
-    public static <T> ServerResponse<T> createByError(){
+    public static <T> ServerResponse<T> createByError() {
         return new ServerResponse<T>(ResultEnum.ERROR.getCode(), ResultEnum.ERROR.getType());
     }
 
-    public static <T> ServerResponse<T> createByError(String message){
-        return new ServerResponse<T>(ResultEnum.ERROR.getCode(),message);
+    public static <T> ServerResponse<T> createByError(String message) {
+        return new ServerResponse<T>(ResultEnum.ERROR.getCode(), message);
     }
 
-    public static <T> ServerResponse<T> createByError(Integer code , String message){
-        return new ServerResponse<T>(code,message);
+    public static <T> ServerResponse<T> createByError(Integer code, String message) {
+        return new ServerResponse<T>(code, message);
     }
 
 
