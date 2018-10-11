@@ -35,6 +35,8 @@ spring:
       async-close-connection-enable: true
   redis:
     timeout: 60s
+  freemarker:
+    suffix: .html
 mybatis-plus:
   mapper-locations: classpath:/com/animo/fly/mapper/xml/*Mapper.xml
 #  #实体扫描，多个package用逗号或者分号分隔

@@ -32,7 +32,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/")
 public class ViewController {
 
-    @GetMapping("admin/login.do")
+    @GetMapping("admin/login")
     public String adminLogin() {
         return "admin/login" ;
     }

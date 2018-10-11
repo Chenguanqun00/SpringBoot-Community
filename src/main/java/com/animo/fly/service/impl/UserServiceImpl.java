@@ -12,24 +12,9 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author Animo
- * @since 2018-09-10
+ * @since 2018-10-01
  */
 @Service
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
-
-    @Override
-    public User getUser(String id) {
-        System.out.println(id+"进入实现类获取数据！");
-        User user = new User();
-        user.setId(Long.valueOf(id));
-        user.setEmail("邮箱");
-        return user;
-    }
-
-    @Override
-    public void deleteUser(String id) {
-        System.out.println(id+"进入实现类删除数据！");
-    }
-
 
 }

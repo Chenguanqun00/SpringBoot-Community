@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 <head>
     <meta charset="utf-8">
     <title>基于 layui 的极简社区页面模版</title>
@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="../res/css/global.css">
 </head>
 <body>
-<div th:replace="common/header"></div>
+<#include "common/header.html">
 <div class="fly-panel fly-column">
     <div class="layui-container">
         <ul class="layui-clear">
@@ -751,6 +751,6 @@
         </div>
     </div>
 </div>
-<div th:replace="common/footer"></div>
+<#include "common/footer.html">
 </body>
 </html>
